@@ -1,5 +1,5 @@
 {
-    "name": "node-dotnet",
+    "name": "node-dotnet-test",
     "version": "1.0.0",
     "description": "Test package for testing node-dotnet addon",
     "main": "dist/index.js",
@@ -7,7 +7,10 @@
         "start": "node dist/index.js",
         "prestart": "npm run build",
         "build": "tsc"
-    },  
+    },
+    "dependencies": {
+        "node-dotnet": "file:./node-dotnet"
+    },
     "repository": {
         "type": "git",
         "url": "git+https://github.com/uriegel/node-dotnet.git"
