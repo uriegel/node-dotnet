@@ -1,6 +1,6 @@
 {
   "name": "node-dotnet",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Accessing dotnet core assemblies from node.js",
   "main": "node-dotnet.js",
   "types": "node-dotnet.d.ts",
@@ -8,7 +8,7 @@
     "start": "node index.js",
     "prestart": "npm run build",
     "build": "tsc"
-},
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/uriegel/node-dotnet.git"
@@ -19,7 +19,7 @@
     "cpp",
     "csharp"
   ],
-  "author": "Uwe Riegelt",
+  "author": "Uwe Riegel",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/uriegel/node-dotnet/issues"
