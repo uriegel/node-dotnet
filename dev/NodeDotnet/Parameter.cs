@@ -6,16 +6,8 @@ using System.Text;
 
 namespace NodeDotnet
 {
-    [DataContract]
-    public class Parameter
+    public struct Parameter
     {
-        public Parameter() { }
-        public Parameter(ParameterInfo info)
-        {
-            Name = info.Name;
-            var t = info.ParameterType.Name;
-            (Type, NumberType, SubType) = GetParameter(t, info);
-        }
 
         (ParameterType, NumberType, ParameterType) GetParameter(string name, ParameterInfo info)
         {
@@ -47,11 +39,8 @@ namespace NodeDotnet
             }
         }
 
-        [DataMember(Name = "name")]
         public string Name;
-        [DataMember(Name = "type")]
         public ParameterType Type;
-        [DataMember(Name = "subType", EmitDefaultValue=false)]
         public ParameterType SubType;
 
         internal NumberType NumberType { get; }

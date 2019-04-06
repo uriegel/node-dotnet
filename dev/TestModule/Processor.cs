@@ -14,20 +14,12 @@ namespace TestModule
             => new ProcessorResult(input.text, input.number, input.dateTime);
 
         [JavascriptMethod]
-        public int Add(int a, int b) => a + b;
-
-        [JavascriptMethod]
-        public async Task<int> AddAsync(int a, int b)
-        {
-            await Task.Delay(1000);
-            return a + b;
-        }
+        public static StringResult GetResult()
+            => new StringResult("The result");
 
         public int Noop() => 9;
 
-        public string Execute(string method, string payload)
+        public static string Execute(string method, string payload)
             => "returned from C#: " + payload; 
-
-
     }
 }

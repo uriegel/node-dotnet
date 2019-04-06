@@ -29,20 +29,25 @@ namespace NodeDotnet
 
                 //MessageBox(IntPtr.Zero, "Haha", "Huhu", 0);
                 assembly = Assembly.Load(assemblyName);
-                var objectTypes = from n in assembly.GetExportedTypes()
+                var methodInfos = from n in assembly.GetExportedTypes()
                                   where n.GetCustomAttribute(typeof(JavascriptObjectAttribute)) != null
-                                  select n;
+                                  from m in n.GetMethods()
+                                  where m.GetCustomAttribute(typeof(JavascriptMethodAttribute)) != null
+                                  select new Method(m);
 
-                objectInfos = objectTypes.ToDictionary(m => m.Name, m => new ObjectInfo(m));
-                var classes = objectInfos.ToArray().Select(n => new JSClass(n.Key, n.Value.Methods.Values));
-                var seri = new DataContractJsonSerializer(typeof(JSClass[]));
-                var ms = new MemoryStream();
-                seri.WriteObject(ms, classes.ToArray());
-                ms.Capacity = (int)ms.Length;
-                var buff = ms.GetBuffer();
-                var result = Encoding.UTF8.GetString(buff);
+                var nichts = methodInfos.Count();
+                                    
 
-                return result;
+                //objectInfos = objectTypes.ToDictionary(m => m.Name, m => new ObjectInfo(m));
+                //var classes = objectInfos.ToArray().Select(n => new JSClass(n.Key, n.Value.Methods.Values));
+                //var seri = new DataContractJsonSerializer(typeof(JSClass[]));
+                //var ms = new MemoryStream();
+                //seri.WriteObject(ms, classes.ToArray());
+                //ms.Capacity = (int)ms.Length;
+                //var buff = ms.GetBuffer();
+                //var result = Encoding.UTF8.GetString(buff);
+
+                return "result";
             }
             catch (Exception e)
             {
@@ -52,74 +57,19 @@ namespace NodeDotnet
 
         public static void ConstructObject(int objectId, [MarshalAs(UnmanagedType.LPWStr)] string name)
         {
-            var info = objectInfos[name];
-            var t = assembly.GetType(info.FullName);
-            var o = Activator.CreateInstance(t);
-            objects[objectId] = new ObjectHolder(o, info);
+            //var info = objectInfos[name];
+            //var t = assembly.GetType(info.FullName);
+            //var o = Activator.CreateInstance(t);
+            //objects[objectId] = new ObjectHolder(o, info);
         }
 
-        public static void DeleteObject(int objectId)
-            => objects.Remove(objectId);
-
-        static int start = 0;
-        [return: MarshalAs(UnmanagedType.LPWStr)]
-        public static string GetEvent()
-        {
-            Thread.Sleep(500);
-            return $"New Event: ${++start}"; 
-        }
-
-        [return: MarshalAs(UnmanagedType.LPWStr)]
-        public static string ExecuteSync([MarshalAs(UnmanagedType.LPWStr)] string input)
-            =>"Retörning from Mänaged Cöde: " + input;
-
-        public static void Execute2Sync([MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)][In] byte[] payload, int size, 
-            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 3)][Out] byte[] result, int resultSize)
-        {
-            var text = Encoding.UTF8.GetString(payload);
-            var resultString = "Retörning from Mänaged Cöde: " + text;
-            resultSize = Encoding.UTF8.GetBytes(resultString, 0, resultString.Length, result, 0);
-        }
-        
-        [return: MarshalAs(UnmanagedType.LPWStr)]
-        public static string Execute(int objectId, [MarshalAs(UnmanagedType.LPWStr)] string method,
-            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 3)][In] byte[] payload, int size)
-        {
-            var result = InternalExecute(objectId, method, payload);
-            switch (result)
-            {
-                case string s:
-                    return s;
-                case int i:
-                    return i.ToString();
-                default:
-                    return "";
-            }
-        }
-
-        public static async void ExecuteAsync(int objectId, [MarshalAs(UnmanagedType.LPWStr)] string method,
-            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 3)][In] byte[] payload, int size)
-        {
-            var taskResult = await (Task<object>)InternalExecute(objectId, method, payload);
-            string result;
-            switch (taskResult)
-            {
-                case string s:
-                    result = s;
-                    break;
-                case int i:
-                    result = i.ToString();
-                    break;
-                default:
-                    result = "";
-                    break;
-            }
-        }
+        //public static void DeleteObject(int objectId)
+        //    => objects.Remove(objectId);
 
         static object InternalExecute(int objectId, string method, byte[] payload)
         {
-            var info = objects[objectId];
-            var methodInfo = info.Info.Methods[method];
+//            var info = objects[objectId];
+  //          var methodInfo = info.Info.Methods[method];
             var position = 0;
 
             object GetParameter(Parameter parameterInfo)
@@ -146,8 +96,9 @@ namespace NodeDotnet
                 }
             }
 
-            var parameters = methodInfo.Parameters.Select(n => GetParameter(n)).ToArray();
-            return methodInfo.Info.Invoke(info.Object, parameters);
+            //var parameters = methodInfo.Parameters.Select(n => GetParameter(n)).ToArray();
+            //return methodInfo.Info.Invoke(info.Object, parameters);
+            return "";
         }
 
         static int ReadInt(byte[] payload, ref int position)
@@ -168,8 +119,6 @@ namespace NodeDotnet
             return result;
         }
 
-        static Dictionary<string, ObjectInfo> objectInfos = new Dictionary<string, ObjectInfo>();
-        static Dictionary<int, ObjectHolder> objects = new Dictionary<int, ObjectHolder>();
         static Assembly assembly;
     }
 }

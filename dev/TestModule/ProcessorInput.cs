@@ -22,4 +22,11 @@ namespace TestModule
         public double number { get;  }
         public DateTime dateTime { get;  }
     }
+
+    public struct StringResult
+    {
+        public StringResult(string result) => this.result = result;
+
+        public string result { get; }
+    }
 }

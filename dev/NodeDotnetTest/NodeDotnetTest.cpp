@@ -112,18 +112,6 @@ int main(int argc, char* argv[]) {
 
 	if (hr < 0)
 		return 9;
-	// The assembly name passed in the third parameter is a managed assembly name
-	// as described at https://docs.microsoft.com/dotnet/framework/app-domains/assembly-names
-	hr = createManagedDelegate(
-		hostHandle,
-		domainId,
-		"NodeDotnet",
-		"NodeDotnet.Bridge",
-		"ExecuteSync",
-		(void**)& executeSyncDelegate);
-
-	if (hr < 0)
-		return 9;
 
 	auto ret = initializeDelegate(L"TestModule");
 
@@ -180,17 +168,8 @@ void BuildTpaList(const char* directory, const char* extension, std::string& tpa
 	tpaList.append(runtimePath);
 	tpaList.append(FS_SEPARATOR);
 	tpaList.append("NodeDotnet\\bin\\Debug\\netstandard2.0\\NodeDotnet.dll");
-
-
-	//tpaList.append(runtimePath);
-	//tpaList.append(FS_SEPARATOR);
-	//tpaList.append("TestModule\\bin\\Debug\\netstandard2.0\\NodeDotnet.Core.dll");
-	//tpaList.append(PATH_DELIMITER);
-	//tpaList.append(runtimePath);
-	//tpaList.append(FS_SEPARATOR);
-	//tpaList.append("NodeDotnet\\bin\\Debug\\netstandard2.0\\NodeDotnet.dll");
-	//tpaList.append(PATH_DELIMITER);
-	//tpaList.append(runtimePath);
-	//tpaList.append(FS_SEPARATOR);
-	//tpaList.append("TestModule\\bin\\Debug\\netstandard2.0\\TestModule.dll");
+	tpaList.append(PATH_DELIMITER);
+	tpaList.append(runtimePath);
+	tpaList.append(FS_SEPARATOR);
+	tpaList.append("TestModule\\bin\\Debug\\netstandard2.0\\TestModule.dll");
 }
