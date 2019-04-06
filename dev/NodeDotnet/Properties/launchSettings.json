@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "NodeDotnet": {
+      "commandName": "Executable",
+      "executablePath": "C:\\Users\\urieg\\source\\repos\\node-dotnet\\dev\\NodeDotnetTest.exe"
+    }
+  }
+}

@@ -44,7 +44,8 @@ int main(int argc, char* argv[]) {
 	if (last_slash != NULL)
 		* last_slash = 0;
 
-	strcat(runtimePath, "\\netstandard2.0");
+//	strcat(runtimePath, "\\TestModule\\bin\\Debug\\netstandard2.0");
+	//strcat(runtimePath, );
 	
 	auto dllName = "coreclr.dll";
 	string coreclrDllPath(clrBasePath);
@@ -96,9 +97,9 @@ int main(int argc, char* argv[]) {
 	if (hr < 0)
 		return 9;
 
-	char buff[200];
-	cin.getline(buff, 20);
-	
+	//char buff[200];
+	//cin.getline(buff, 20);
+
 	// The assembly name passed in the third parameter is a managed assembly name
 	// as described at https://docs.microsoft.com/dotnet/framework/app-domains/assembly-names
 	hr = createManagedDelegate(
@@ -174,14 +175,22 @@ void BuildTpaList(const char* directory, const char* extension, std::string& tpa
 
 	tpaList.append(runtimePath);
 	tpaList.append(FS_SEPARATOR);
-	tpaList.append("NodeDotnet.Core.dll");
+	tpaList.append("NodeDotnet.Core\\bin\\Debug\\netstandard2.0\\NodeDotnet.Core.dll");
 	tpaList.append(PATH_DELIMITER);
 	tpaList.append(runtimePath);
 	tpaList.append(FS_SEPARATOR);
-	tpaList.append("NodeDotnet.dll");
-	tpaList.append(PATH_DELIMITER);
-	tpaList.append(runtimePath);
-	tpaList.append(FS_SEPARATOR);
-	tpaList.append("TestModule.dll");
-	tpaList.append(PATH_DELIMITER);
+	tpaList.append("NodeDotnet\\bin\\Debug\\netstandard2.0\\NodeDotnet.dll");
+
+
+	//tpaList.append(runtimePath);
+	//tpaList.append(FS_SEPARATOR);
+	//tpaList.append("TestModule\\bin\\Debug\\netstandard2.0\\NodeDotnet.Core.dll");
+	//tpaList.append(PATH_DELIMITER);
+	//tpaList.append(runtimePath);
+	//tpaList.append(FS_SEPARATOR);
+	//tpaList.append("NodeDotnet\\bin\\Debug\\netstandard2.0\\NodeDotnet.dll");
+	//tpaList.append(PATH_DELIMITER);
+	//tpaList.append(runtimePath);
+	//tpaList.append(FS_SEPARATOR);
+	//tpaList.append("TestModule\\bin\\Debug\\netstandard2.0\\TestModule.dll");
 }

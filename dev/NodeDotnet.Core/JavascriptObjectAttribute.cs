@@ -4,5 +4,8 @@ using System.Text;
 
 namespace NodeDotnet.Core
 {
-    public class JavascriptObjectAttribute : Attribute { }
+    public class JavascriptObjectAttribute : Attribute
+    {
+        public static void Affe() { }
+    }
 }

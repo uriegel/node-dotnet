@@ -7,11 +7,12 @@ using System.Threading.Tasks;
 namespace TestModule
 {
     [JavascriptObject]
-    public class Processor : IJavascriptObject
+    public class Processor 
     {
         [JavascriptMethod]
-        public string GetTest(string text, double number, DateTime dateTime)
-            => $"Returned from CSharp: {text}, {number}, {dateTime}";
+        public static ProcessorResult GetTest(ProcessorInput input)
+            => new ProcessorResult(input.text, input.number, input.dateTime);
+
         [JavascriptMethod]
         public int Add(int a, int b) => a + b;
 
@@ -26,5 +27,7 @@ namespace TestModule
 
         public string Execute(string method, string payload)
             => "returned from C#: " + payload; 
+
+
     }
 }

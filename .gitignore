@@ -13,3 +13,8 @@ dev/NodeDotnet.Core/.vs
 dev/NodeDotnetTest/x64
 dev/TestModule/bin
 dev/TestModule/obj
+Test/bin
+Test/obj
+dev/NodeDotnetTest.exe
+dev/NodeDotnetTest.ilk
+dev/NodeDotnetTest.pdb

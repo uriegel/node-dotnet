@@ -6,6 +6,6 @@ namespace NodeDotnet.Core
 {
     public interface IJavascriptObject
     {
-        string Execute(string method, string payload);
+        object Execute(string method, object payload);
     }
 }
