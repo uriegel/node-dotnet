@@ -1,3 +1,11 @@
 dist
 package-lock.json
 node_modules
+dev/NodeDotnet.Core/bin
+dev/NodeDotnet.Core/obj
+dev/NodeDotnet/bin
+dev/NodeDotnet/obj
+dev/NodeDotnet/.vs
+dev/NodeDotnet.Core/.vs
+.vs/NodeDotnet.Core/DesignTimeBuild
+.vs/NodeDotnet.Core/v16
