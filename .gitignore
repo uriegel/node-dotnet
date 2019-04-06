@@ -9,3 +9,7 @@ dev/NodeDotnet/.vs
 dev/NodeDotnet.Core/.vs
 .vs/NodeDotnet.Core/DesignTimeBuild
 .vs/NodeDotnet.Core/v16
+.vscode/ipch/
+dev/NodeDotnetTest/x64
+dev/TestModule/bin
+dev/TestModule/obj
